@@ -272,7 +272,7 @@ class WP_MS_Users_List_Table extends WP_List_Table {
 		echo $avatar;
 
 		if ( current_user_can( 'edit_user', $user->ID ) ) {
-			$edit_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) ), get_edit_user_link( $user->ID ) ) );
+			$edit_link = esc_url( add_query_arg( 'wp_http_referer', urlencode( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '' ), get_edit_user_link( $user->ID ) ) );
 			$edit      = "<a href=\"{$edit_link}\">{$user->user_login}</a>";
 		} else {
 			$edit = $user->user_login;
@@ -544,12 +544,12 @@ class WP_MS_Users_List_Table extends WP_List_Table {
 		$actions      = array();
 
 		if ( current_user_can( 'edit_user', $user->ID ) ) {
-			$edit_link       = esc_url( add_query_arg( 'wp_http_referer', urlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) ), get_edit_user_link( $user->ID ) ) );
+			$edit_link       = esc_url( add_query_arg( 'wp_http_referer', urlencode( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '' ), get_edit_user_link( $user->ID ) ) );
 			$actions['edit'] = '<a href="' . $edit_link . '">' . __( 'Edit' ) . '</a>';
 		}
 
 		if ( current_user_can( 'delete_user', $user->ID ) && ! in_array( $user->user_login, $super_admins, true ) ) {
-			$actions['delete'] = '<a href="' . esc_url( network_admin_url( add_query_arg( '_wp_http_referer', urlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) ), wp_nonce_url( 'users.php', 'deleteuser' ) . '&amp;action=deleteuser&amp;id=' . $user->ID ) ) ) . '" class="delete">' . __( 'Delete' ) . '</a>';
+			$actions['delete'] = '<a href="' . esc_url( network_admin_url( add_query_arg( '_wp_http_referer', urlencode( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '' ), wp_nonce_url( 'users.php', 'deleteuser' ) . '&amp;action=deleteuser&amp;id=' . $user->ID ) ) ) . '" class="delete">' . __( 'Delete' ) . '</a>';
 		}
 
 		/**

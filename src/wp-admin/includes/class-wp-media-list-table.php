@@ -126,7 +126,7 @@ class WP_Media_List_Table extends WP_List_Table {
 
 		$type_links = array();
 
-		$filter = empty( $_GET['attachment-filter'] ) ? '' : $_GET['attachment-filter'];
+		$filter = empty( $_GET['attachment-filter'] ) ? '' : sanitize_text_field( wp_unslash( $_GET['attachment-filter'] ) );
 
 		$type_links['all'] = sprintf(
 			'<option value=""%s>%s</option>',

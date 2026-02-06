@@ -213,10 +213,10 @@ function wp_ajax_wp_compression_test() {
 				wp_die( -1 );
 			}
 
-			if ( false !== stripos( $_SERVER['HTTP_ACCEPT_ENCODING'], 'deflate' ) && function_exists( 'gzdeflate' ) && ! $force_gzip ) {
+			if ( false !== stripos( wp_unslash( $_SERVER['HTTP_ACCEPT_ENCODING'] ), 'deflate' ) && function_exists( 'gzdeflate' ) && ! $force_gzip ) {
 				header( 'Content-Encoding: deflate' );
 				$output = gzdeflate( $test_str, 1 );
-			} elseif ( false !== stripos( $_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip' ) && function_exists( 'gzencode' ) ) {
+			} elseif ( false !== stripos( wp_unslash( $_SERVER['HTTP_ACCEPT_ENCODING'] ), 'gzip' ) && function_exists( 'gzencode' ) ) {
 				header( 'Content-Encoding: gzip' );
 				$output = gzencode( $test_str, 1 );
 			} else {

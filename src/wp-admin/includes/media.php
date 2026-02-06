@@ -2188,8 +2188,9 @@ function media_upload_form( $errors = null ) {
 	 */
 	if (
 		wp_is_mobile() &&
-		str_contains( $_SERVER['HTTP_USER_AGENT'], 'OS 7_' ) &&
-		str_contains( $_SERVER['HTTP_USER_AGENT'], 'like Mac OS X' )
+		isset( $_SERVER['HTTP_USER_AGENT'] ) &&
+		str_contains( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ), 'OS 7_' ) &&
+		str_contains( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ), 'like Mac OS X' )
 	) {
 		$plupload_init['multi_selection'] = false;
 	}

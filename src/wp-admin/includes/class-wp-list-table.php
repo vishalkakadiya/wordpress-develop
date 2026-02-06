@@ -1040,7 +1040,7 @@ class WP_List_Table {
 		$current              = $this->get_pagenum();
 		$removable_query_args = wp_removable_query_args();
 
-		$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		$current_url = set_url_scheme( 'http://' . ( isset( $_SERVER['HTTP_HOST'] ) ? wp_unslash( $_SERVER['HTTP_HOST'] ) : '' ) . ( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '' ) );
 
 		$current_url = remove_query_arg( $removable_query_args, $current_url );
 
@@ -1394,12 +1394,12 @@ class WP_List_Table {
 	public function print_column_headers( $with_id = true ) {
 		list( $columns, $hidden, $sortable, $primary ) = $this->get_column_info();
 
-		$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		$current_url = set_url_scheme( 'http://' . ( isset( $_SERVER['HTTP_HOST'] ) ? wp_unslash( $_SERVER['HTTP_HOST'] ) : '' ) . ( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '' ) );
 		$current_url = remove_query_arg( 'paged', $current_url );
 
 		// When users click on a column header to sort by other columns.
 		if ( isset( $_GET['orderby'] ) ) {
-			$current_orderby = $_GET['orderby'];
+			$current_orderby = sanitize_text_field( wp_unslash( $_GET['orderby'] ) );
 			// In the initial view there's no orderby parameter.
 		} else {
 			$current_orderby = '';
@@ -1545,7 +1545,7 @@ class WP_List_Table {
 
 		// When users click on a column header to sort by other columns.
 		if ( isset( $_GET['orderby'] ) ) {
-			$current_orderby = $_GET['orderby'];
+			$current_orderby = sanitize_text_field( wp_unslash( $_GET['orderby'] ) );
 			// In the initial view there's no orderby parameter.
 		} else {
 			$current_orderby = '';

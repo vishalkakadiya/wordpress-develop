@@ -300,10 +300,7 @@ class WP_Importer {
  *                                The function exits when a required parameter is missing.
  */
 function get_cli_args( $param, $required = false ) {
-	$args = $_SERVER['argv'];
-	if ( ! is_array( $args ) ) {
-		$args = array();
-	}
+	$args = isset( $_SERVER['argv'] ) && is_array( $_SERVER['argv'] ) ? $_SERVER['argv'] : array();
 
 	$out = array();
 
